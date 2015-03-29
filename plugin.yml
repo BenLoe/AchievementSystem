@@ -1,0 +1,6 @@
+name: AchievementSystem
+main: org.PrisonMain.Achievement.Main
+version: 1.0
+description: >
+             Achievement system
+commands:
