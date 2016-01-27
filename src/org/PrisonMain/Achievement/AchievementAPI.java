@@ -2,12 +2,16 @@ package org.PrisonMain.Achievement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import me.BenLoe.Blackmarket.Stats.Stats;
 
 import org.Prison.Main.Currency.CrystalAPI;
 import org.Prison.Main.Currency.MoneyAPI;
 import org.Prison.Main.Options.OptionAPI;
 import org.Prison.Main.Options.OptionType;
 import org.PrisonMain.Achievement.Menu.AchievementMenu;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -18,28 +22,28 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class AchievementAPI {
 
 	public static boolean isCompleted(AchievementMenu m, String name){
-		if (getCompletedList(name).contains(m.name())){
-			
+		if (getCompletedList(Bukkit.getPlayer(name)).contains(m.name())){
 			return true;
 		}else{
 			return false;
 		}
 	}
 	
-	public static List<String> getCompletedList(String name){
-		if(Files.config().contains("Players." + name + ".Completed")){
-			return Files.config().getStringList("Players." + name + ".Completed");
+	public static List<String> getCompletedList(Player p){
+		UUID uuid = p.getUniqueId();
+		if(Files.config().contains("Players." + uuid + ".Completed")){
+			return Files.config().getStringList("Players." + uuid + ".Completed");
 		}else{
 			return new  ArrayList<String>();
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	public static void completeAchievement(Player p, AchievementMenu m){
 		if (!isCompleted(m, p.getName())){
-			List<String> newcompleted = getCompletedList(p.getName());
+			UUID uuid = p.getUniqueId();
+			List<String> newcompleted = getCompletedList(p);
 			newcompleted.add(m.name());
-			Files.config().set("Players." + p.getName() + ".Completed", newcompleted);
+			Files.config().set("Players." + uuid + ".Completed", newcompleted);
 			Files.saveConfig();
 			if (OptionAPI.isEnabled(OptionType.ACHIEVEMENTS, p.getName())){
 				p.sendMessage("§b§l§m-----------§b§l[§f§lAchievement Completed§b§l]§b§l§m-----------");
@@ -54,7 +58,7 @@ public class AchievementAPI {
 					p.sendMessage("§a§l+ 1000$");
 					p.sendMessage("§b§l+ 300 Crystals");
 					MoneyAPI.addMoney(p, 1000);
-					CrystalAPI.addCrystals(p.getName(), 300);
+					CrystalAPI.addCrystals(p, 300);
 					
 				}
 				break;
@@ -66,7 +70,7 @@ public class AchievementAPI {
 					p.sendMessage("§a§l+ 2000$");
 					p.sendMessage("§b§l+ 500 Crystals");
 					MoneyAPI.addMoney(p, 2000);
-					CrystalAPI.addCrystals(p.getName(), 500);
+					CrystalAPI.addCrystals(p, 500);
 				}
 				break;
 				case LIVING_THE_FANCY_LIFE:{
@@ -75,7 +79,7 @@ public class AchievementAPI {
 					p.sendMessage(ChatColor.WHITE + "Purchase the §3§lVIP §frank on our website.");
 					p.sendMessage("   ");
 					p.sendMessage("§b§l+ 5000 Crystals");
-					CrystalAPI.addCrystals(p.getName(), 5000);
+					CrystalAPI.addCrystals(p, 5000);
 				}
 				break;
 				case GETTING_LUCKY:{
@@ -85,7 +89,7 @@ public class AchievementAPI {
 					p.sendMessage("   ");
 					p.sendMessage("§a§l+ 10,000$");
 					p.sendMessage("§b§l+ 1500 Crystals");
-					CrystalAPI.addCrystals(p.getName(), 1500);
+					CrystalAPI.addCrystals(p, 1500);
 					MoneyAPI.addMoney(p, 10000);
 				}
 				break;
@@ -95,7 +99,7 @@ public class AchievementAPI {
 					p.sendMessage(ChatColor.WHITE + "Purchase the §a§lELITE §frank on our website.");
 					p.sendMessage("   ");
 					p.sendMessage("§b§l+ 8000 Crystals");
-					CrystalAPI.addCrystals(p.getName(), 8000);
+					CrystalAPI.addCrystals(p, 8000);
 				}
 				break;
 				case READING_THE_MANUAL:{
@@ -106,7 +110,7 @@ public class AchievementAPI {
 					p.sendMessage("§e§l+ 2 Ancient Pickaxes");
 					p.sendMessage("§a§l+ 2000$");
 					p.sendMessage("§b§l+ 300 Crystals");
-					CrystalAPI.addCrystals(p.getName(), 300);
+					CrystalAPI.addCrystals(p, 300);
 					MoneyAPI.addMoney(p, 2000);
 					ItemStack ancient = new ItemStack(Material.STONE_PICKAXE);
 					ItemMeta ancientm = ancient.getItemMeta();
@@ -128,7 +132,7 @@ public class AchievementAPI {
 					p.sendMessage("   ");
 					p.sendMessage("§a§l+ 100,000$");
 					p.sendMessage("§b§l+ 2000 Crystals");
-					CrystalAPI.addCrystals(p.getName(), 2000);
+					CrystalAPI.addCrystals(p, 2000);
 					MoneyAPI.addMoney(p, 100000);
 				}
 				break;
@@ -139,7 +143,7 @@ public class AchievementAPI {
 					p.sendMessage("   ");
 					p.sendMessage("§a§l+ 100,000$");
 					p.sendMessage("§b§l+ 2500 Crystals");
-					CrystalAPI.addCrystals(p.getName(), 2500);
+					CrystalAPI.addCrystals(p, 2500);
 					MoneyAPI.addMoney(p, 100000);
 				}
 				break;
@@ -150,7 +154,7 @@ public class AchievementAPI {
 					p.sendMessage("   ");
 					p.sendMessage("§a§l+ 10,000$");
 					p.sendMessage("§b§l+ 2000 Crystals");
-					CrystalAPI.addCrystals(p.getName(), 2000);
+					CrystalAPI.addCrystals(p, 2000);
 					MoneyAPI.addMoney(p, 10000);
 				}
 				break;
@@ -161,7 +165,7 @@ public class AchievementAPI {
 					p.sendMessage("   ");
 					p.sendMessage("§a§l+ 500,000$");
 					p.sendMessage("§b§l+ 5000 Crystals");
-					CrystalAPI.addCrystals(p.getName(), 5000);
+					CrystalAPI.addCrystals(p, 5000);
 					MoneyAPI.addMoney(p, 500000);
 				}
 				break;
@@ -172,7 +176,7 @@ public class AchievementAPI {
 					p.sendMessage("   ");
 					p.sendMessage("§a§l+ 5000$");
 					p.sendMessage("§b§l+ 400 Crystals");
-					CrystalAPI.addCrystals(p.getName(), 400);
+					CrystalAPI.addCrystals(p, 400);
 					MoneyAPI.addMoney(p, 5000);
 				}
 				break;
@@ -183,8 +187,17 @@ public class AchievementAPI {
 					p.sendMessage("   ");
 					p.sendMessage("§a§l+ 10,000$");
 					p.sendMessage("§b§l+ 1500 Crystals");
-					CrystalAPI.addCrystals(p.getName(), 1500);
+					CrystalAPI.addCrystals(p, 1500);
 					MoneyAPI.addMoney(p, 10000);
+				}
+				break;
+				case TOO_FANCY:{
+					p.sendMessage(ChatColor.GREEN + "Way Too Fancy");
+					p.sendMessage("   ");
+					p.sendMessage(ChatColor.WHITE + "Purchase the §6§lULTRA §frank on our website.");
+					p.sendMessage("   ");
+					p.sendMessage("§b§l+ 10000 Crystals");
+					CrystalAPI.addCrystals(p, 10000);
 				}
 			}
 				p.sendMessage("   ");

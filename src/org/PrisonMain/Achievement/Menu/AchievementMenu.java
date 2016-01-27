@@ -2,6 +2,7 @@ package org.PrisonMain.Achievement.Menu;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.Prison.Friends.FriendAPI;
 import org.PrisonMain.Achievement.AchievementAPI;
@@ -10,6 +11,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -37,7 +39,9 @@ public enum AchievementMenu {
 	
 	LIVING_THE_FANCY_LIFE(23),
 	
-	LIVING_THE_EXTRA_FANCY_LIFE(24);
+	LIVING_THE_EXTRA_FANCY_LIFE(24),
+	
+	TOO_FANCY(31);
 	
 	
 	public final int Slot;
@@ -82,6 +86,7 @@ public enum AchievementMenu {
 			ItemMeta itemm = item.getItemMeta();
 			itemm.setDisplayName(DisplayName);
 			itemm.setLore(lore);
+			itemm.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 			item.setItemMeta(itemm);
 			return item;
 		}
@@ -100,8 +105,9 @@ public enum AchievementMenu {
 			lore.add(" ");
 			lore.add(ChatColor.WHITE + "Mine 50,000 blocks in the mines.");
 			int broken = 0;
-			if (Files.config().contains("Players." + p.getName() + ".Blocks")){
-				broken = Files.config().getInt("Players." + p.getName() + ".Blocks");
+			UUID uuid = p.getUniqueId();
+			if (Files.config().contains("Players." + uuid + ".Blocks")){
+				broken = Files.config().getInt("Players." + uuid + ".Blocks");
 			}
 			if (AchievementAPI.isCompleted(AchievementMenu.SUPREME_MINER, p.getName())){
 				broken = 50000;
@@ -114,6 +120,7 @@ public enum AchievementMenu {
 			ItemMeta itemm = item.getItemMeta();
 			itemm.setDisplayName(DisplayName);
 			itemm.setLore(lore);
+			itemm.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 			item.setItemMeta(itemm);
 			return item;
 		}
@@ -139,6 +146,7 @@ public enum AchievementMenu {
 			ItemMeta itemm = item.getItemMeta();
 			itemm.setDisplayName(DisplayName);
 			itemm.setLore(lore);
+			itemm.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 			item.setItemMeta(itemm);
 			return item;
 		}
@@ -162,6 +170,7 @@ public enum AchievementMenu {
 			ItemMeta itemm = item.getItemMeta();
 			itemm.setDisplayName(DisplayName);
 			itemm.setLore(lore);
+			itemm.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 			item.setItemMeta(itemm);
 			return item;
 		}
@@ -180,8 +189,8 @@ public enum AchievementMenu {
 			lore.add(" ");
 			lore.add(ChatColor.WHITE + "Vote for the server 50 times.");
 			int progress = 0;
-			if (org.Prison.Main.Files.config().contains("Players." + p.getName() + ".Votes")){
-				int old =org.Prison.Main.Files.config().getInt("Players." + p.getName() + ".Votes");
+			if (org.Prison.Main.Files.getDataFile().contains("Players." + p.getUniqueId() + ".Votes")){
+				int old = org.Prison.Main.Files.getDataFile().getInt("Players." + p.getUniqueId() + ".Votes");
 				progress = old;
 			}
 			if (AchievementAPI.isCompleted(AchievementMenu.THE_VOTING_KING, p.getName())){
@@ -195,6 +204,7 @@ public enum AchievementMenu {
 			ItemMeta itemm = item.getItemMeta();
 			itemm.setDisplayName(DisplayName);
 			itemm.setLore(lore);
+			itemm.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 			item.setItemMeta(itemm);
 			return item;
 		}
@@ -219,6 +229,7 @@ public enum AchievementMenu {
 			ItemMeta itemm = item.getItemMeta();
 			itemm.setDisplayName(DisplayName);
 			itemm.setLore(lore);
+			itemm.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 			item.setItemMeta(itemm);
 			return item;
 		}
@@ -243,6 +254,7 @@ public enum AchievementMenu {
 			ItemMeta itemm = item.getItemMeta();
 			itemm.setDisplayName(DisplayName);
 			itemm.setLore(lore);
+			itemm.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 			item.setItemMeta(itemm);
 			return item;
 		}
@@ -267,6 +279,7 @@ public enum AchievementMenu {
 			ItemMeta itemm = item.getItemMeta();
 			itemm.setDisplayName(DisplayName);
 			itemm.setLore(lore);
+			itemm.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 			item.setItemMeta(itemm);
 			return item;
 		}
@@ -291,6 +304,7 @@ public enum AchievementMenu {
 			ItemMeta itemm = item.getItemMeta();
 			itemm.setDisplayName(DisplayName);
 			itemm.setLore(lore);
+			itemm.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 			item.setItemMeta(itemm);
 			return item;
 		}
@@ -315,6 +329,7 @@ public enum AchievementMenu {
 			ItemMeta itemm = item.getItemMeta();
 			itemm.setDisplayName(DisplayName);
 			itemm.setLore(lore);
+			itemm.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 			item.setItemMeta(itemm);
 			return item;
 		}
@@ -338,6 +353,7 @@ public enum AchievementMenu {
 			ItemMeta itemm = item.getItemMeta();
 			itemm.setDisplayName(DisplayName);
 			itemm.setLore(lore);
+			itemm.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 			item.setItemMeta(itemm);
 			return item;
 		}
@@ -362,6 +378,31 @@ public enum AchievementMenu {
 			ItemMeta itemm = item.getItemMeta();
 			itemm.setDisplayName(DisplayName);
 			itemm.setLore(lore);
+			itemm.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+			item.setItemMeta(itemm);
+			return item;
+		}
+		case TOO_FANCY:{
+			ItemStack item = new ItemStack(Material.AIR);
+			String DisplayName = "";
+			List<String> lore = new ArrayList<String>();
+			if (AchievementAPI.isCompleted(this, p.getName())){
+				DisplayName = ChatColor.GREEN + "Way Too Fancy";
+				lore.add("§a§lCompleted!");
+				item = new ItemStack(373, 1, (short) 8261);
+			}else{
+				DisplayName = ChatColor.RED + "Way Too Fancy";
+				item = new ItemStack(Material.GLASS_BOTTLE);
+			}
+			lore.add(" ");
+			lore.add(ChatColor.WHITE + "Purchase the §6§lULTRA §frank on our website.");
+			lore.add(" ");
+			lore.add("§f§lReward: ");
+			lore.add(ChatColor.AQUA + "10000 Crystals");
+			ItemMeta itemm = item.getItemMeta();
+			itemm.setDisplayName(DisplayName);
+			itemm.setLore(lore);
+			itemm.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 			item.setItemMeta(itemm);
 			return item;
 		}
